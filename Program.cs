@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace DIO.Bank
 {
@@ -31,43 +32,83 @@ namespace DIO.Bank
                         Console.Clear();
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException("Digite uma das opções disponiveis por favor.");
                 }
                 opcaoUsuario = ObterOpcaoUsuario();
             }
             System.Console.WriteLine("Obrigado por utilizar nossos serviços.");
             Console.ReadLine();
-
-            /*Console.Write("Digite seu nome: ");
-            string nome = Console.ReadLine();
-            Console.Write("Qual o seu credito? ");
-            double credito = double.Parse(Console.ReadLine());
-            Console.Write("Digite o seu Salario: ");
-            double salario = double.Parse(Console.ReadLine());
-
-            Conta minhaConta = new Conta(nome,credito,salario,TipoConta.PessoaFisica);
-
-            Console.WriteLine("\n" + minhaConta);
-            Console.WriteLine("\nDigite o valor que vai sacar: ");
-            minhaConta.Sacar(double.Parse(Console.ReadLine()));
-
-            Console.WriteLine("\n" + minhaConta);
-            Console.ReadLine();*/
         }
-
         private static void Depositar()
         {
-            throw new NotImplementedException();
+            Console.Write("Digite o numero da conta: ");
+            int numeroConta = int.Parse(Console.ReadLine());
+            if(ValidaConta(ref numeroConta))
+            {
+            Console.Write("Digite o valor a ser depositado: ");
+            double valorDeposito = double.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
+            listaContas[numeroConta].Depositar(valorDeposito);
+            }else{
+                Console.WriteLine("Conta não encontrada!");
+            }
         }
 
         private static void Sacar()
         {
-            
+            Console.Write("Digite o numero da conta: ");
+            int numeroConta = int.Parse(Console.ReadLine());
+            if(ValidaConta(ref numeroConta))
+            {
+            Console.Write("Digite o valor a ser sacado: ");
+            double valorSaque = double.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
+            listaContas[numeroConta].Sacar(valorSaque);
+            }else{
+                Console.WriteLine("Conta não encontrada!");
+            }
         }
 
+        private static bool ValidaConta(ref int numeroConta)
+        {
+            int indice = -1;
+            for(int i = 0; i < listaContas.Count; i++)
+            {
+              if(numeroConta == listaContas[i].CodigoConta)
+              {
+                  indice = i;
+              }
+            }
+            if (indice == -1){
+                return false;
+            }else{
+                numeroConta = indice;
+                return true;
+            }
+
+        }
         private static void Transferir()
         {
-            throw new NotImplementedException();
+            Console.Write("Digite o numero da conta Remetente: ");
+            int numeroContaO = int.Parse(Console.ReadLine());
+            if(ValidaConta(ref numeroContaO))
+            {
+                Console.Write("Digite o numero da conta Destinatario: ");
+                int numeroContaD = int.Parse(Console.ReadLine());
+                if(ValidaConta(ref numeroContaD))
+                {
+                    Console.Write("Digite o valor a ser transferido: ");
+                    double valorTransferencia = double.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
+                    Console.WriteLine("\nRealizando transferencia..." + "\n");
+                    listaContas[numeroContaO].Transferir(valorTransferencia,listaContas[numeroContaD]);
+                }
+                else
+                {
+                    Console.WriteLine("Conta Destinatario não encontrada!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Conta Remetente não encontrada!");
+            }
         }
 
         private static void ListarContas()
@@ -81,9 +122,9 @@ namespace DIO.Bank
             foreach(Conta conta in listaContas)
             {
                 int i = 0;
-                Console.Write("# (0) - ", i);
+                Console.Write($"# {(i+1)} - ");
                 System.Console.WriteLine(conta);
-                i++;
+                i ++;
             }
         }
 
@@ -97,10 +138,10 @@ namespace DIO.Bank
             string nomeCliente = Console.ReadLine();
 
             Console.Write("Digite o saldo Inicial: ");
-            double saldoInicial = double.Parse(Console.ReadLine());
+            double saldoInicial = double.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
 
             Console.Write("Digite o Credito: ");
-            double credito = double.Parse(Console.ReadLine());
+            double credito = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
             Conta novaConta = new Conta(nomeCliente, credito, saldoInicial, (TipoConta)tipoConta);
             listaContas.Add(novaConta);
