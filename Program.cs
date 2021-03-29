@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace DIO.Bank
 {
     class Program
     {
+        static List<Conta> listaContas = new List<Conta>();
         static void Main(string[] args)
         {
             string opcaoUsuario = ObterOpcaoUsuario();
@@ -11,19 +13,19 @@ namespace DIO.Bank
                 switch(opcaoUsuario)
                 {
                     case "1":
-                        //ListarContas();
+                        ListarContas();
                         break;
                     case "2":
-                        //InserirConta();
+                        InserirConta();
                         break;
                     case "3":
-                        //Transferir();
+                        Transferir();
                         break;
                     case "4":
-                        //Sacar();
+                        Sacar();
                         break;
                     case "5":
-                        //Depositar();
+                        Depositar();
                         break;
                     case "C":
                         Console.Clear();
@@ -36,7 +38,7 @@ namespace DIO.Bank
             System.Console.WriteLine("Obrigado por utilizar nossos serviços.");
             Console.ReadLine();
 
-            Console.Write("Digite seu nome: ");
+            /*Console.Write("Digite seu nome: ");
             string nome = Console.ReadLine();
             Console.Write("Qual o seu credito? ");
             double credito = double.Parse(Console.ReadLine());
@@ -50,7 +52,58 @@ namespace DIO.Bank
             minhaConta.Sacar(double.Parse(Console.ReadLine()));
 
             Console.WriteLine("\n" + minhaConta);
-            Console.ReadLine();
+            Console.ReadLine();*/
+        }
+
+        private static void Depositar()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Sacar()
+        {
+            
+        }
+
+        private static void Transferir()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void ListarContas()
+        {
+            System.Console.WriteLine("Listar Contas:");
+            if(listaContas.Count == 0)
+            {
+                System.Console.WriteLine("Nenhuma Conta Cadastrada.");
+                return;
+            }
+            foreach(Conta conta in listaContas)
+            {
+                int i = 0;
+                Console.Write("# (0) - ", i);
+                System.Console.WriteLine(conta);
+                i++;
+            }
+        }
+
+        private static void InserirConta()
+        {
+            Console.WriteLine("Inserir nova conta");
+            Console.Write("Digite 1 para Conta Fisica ou 2 para Juridica: ");
+            int tipoConta = int.Parse(Console.ReadLine());
+            
+            Console.Write("Digite o Nome do Cliente: ");
+            string nomeCliente = Console.ReadLine();
+
+            Console.Write("Digite o saldo Inicial: ");
+            double saldoInicial = double.Parse(Console.ReadLine());
+
+            Console.Write("Digite o Credito: ");
+            double credito = double.Parse(Console.ReadLine());
+
+            Conta novaConta = new Conta(nomeCliente, credito, saldoInicial, (TipoConta)tipoConta);
+            listaContas.Add(novaConta);
         }
 
         private static string ObterOpcaoUsuario()
