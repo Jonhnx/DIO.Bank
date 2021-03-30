@@ -28,6 +28,9 @@ namespace DIO.Bank
                     case "5":
                         Depositar();
                         break;
+                    case "6":
+                        ListarContasCodigo();
+                        break;
                     case "C":
                         Console.Clear();
                         break;
@@ -39,6 +42,25 @@ namespace DIO.Bank
             System.Console.WriteLine("Obrigado por utilizar nossos serviços.");
             Console.ReadLine();
         }
+
+        private static void ListarContasCodigo()
+        {
+            System.Console.WriteLine("Listar Contas pelo Numero:");
+            if(listaContas.Count == 0)
+            {
+                System.Console.WriteLine("Nenhuma Conta Cadastrada.");
+                return;
+            }
+            foreach(Conta conta in listaContas)
+            {
+                int i = 0;
+                Console.Write($"# {(i+1)} - ");
+                Console.WriteLine(conta.Nome + ": " + conta.CodigoConta
+                                    + ", tipo: " + conta.TipoConta);
+                i ++;
+            }
+        }
+
         private static void Depositar()
         {
             Console.Write("Digite o numero da conta: ");
@@ -124,7 +146,7 @@ namespace DIO.Bank
                 int i = 0;
                 Console.Write($"# {(i+1)} - ");
                 System.Console.WriteLine(conta);
-                i ++;
+                i++;
             }
         }
 
@@ -158,6 +180,7 @@ namespace DIO.Bank
             Console.WriteLine("3-> Transferir");
             Console.WriteLine("4-> Sacar");
             Console.WriteLine("5-> Depositar");
+            Console.WriteLine("6-> Listar Contas Pelo Codigo");
             Console.WriteLine("C-> limpar tela");
             Console.WriteLine("X-> Sair");
             Console.WriteLine();

@@ -24,7 +24,7 @@ namespace DIO.Bank
         {
             if(Saldo - valorSaque + Credito < 0 )
             {
-                Console.WriteLine("SaldoInsuficiente");
+                Console.WriteLine("Saldo insuficiente");
                 return false;
             }
             if(Saldo - valorSaque < 0)
@@ -62,11 +62,12 @@ namespace DIO.Bank
                     "Codigo da Conta: " + CodigoConta;
         }
 
+
         private void CriaCodigo()
         {
             Random x = new Random();
             CodigoConta = x.Next(100,400);
-            System.Console.WriteLine("O codigo da sua conta é: " + CodigoConta);
+            System.Console.WriteLine("O numero da sua conta é: " + CodigoConta);
         }
     }
 }
