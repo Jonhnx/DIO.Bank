@@ -51,13 +51,12 @@ namespace DIO.Bank
                 System.Console.WriteLine("Nenhuma Conta Cadastrada.");
                 return;
             }
-            foreach(Conta conta in listaContas)
+            for(int i = 0; i < listaContas.Count; i++)
             {
-                int i = 0;
                 Console.Write($"# {(i+1)} - ");
-                Console.WriteLine(conta.Nome + ": " + conta.CodigoConta
-                                    + ", tipo: " + conta.TipoConta);
-                i ++;
+                Console.WriteLine(listaContas[i].Nome + ": " + listaContas[i].CodigoConta 
+                                + ", tipo: " + listaContas[i].TipoConta);
+                
             }
         }
 
@@ -141,12 +140,12 @@ namespace DIO.Bank
                 System.Console.WriteLine("Nenhuma Conta Cadastrada.");
                 return;
             }
-            foreach(Conta conta in listaContas)
+            for(int i = 0; i < listaContas.Count; i++)
             {
-                int i = 0;
                 Console.Write($"# {(i+1)} - ");
-                System.Console.WriteLine(conta);
-                i++;
+                Console.WriteLine(listaContas[i].Nome + ": " + listaContas[i].CodigoConta 
+                                + ", tipo: " + listaContas[i].TipoConta);
+                
             }
         }
 
